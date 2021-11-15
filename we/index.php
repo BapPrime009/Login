@@ -1,4 +1,6 @@
 <?php
+$DateAndTime = date('m-d-Y h:i:s a');  
+$time = time();
     $alert = "";
     session_start();
     if(!empty($_SESSION['active']))
@@ -14,6 +16,7 @@
 
             $user = mysqli_real_escape_string($conection,$_POST['email']);
             $pass = mysqli_real_escape_string($conection,$_POST['password']);
+           
 
             $query = mysqli_query($conection,"SELECT * FROM users WHERE email = '$user' AND password = '$pass'");
             $result = mysqli_num_rows($query);
@@ -31,6 +34,12 @@
                 session_destroy();
             }
         }
+
+    }
+    if(($_SESSION['active'])){
+        $querix = mysqli_query($conection,"INSERT into logs(email, fecha, hora) VALUES 
+        ('$user','$DateAndTime','$time')");
+
 
     }
 }
